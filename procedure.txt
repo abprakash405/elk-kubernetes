@@ -1,0 +1,40 @@
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes
+https://portworx.com/run-ha-elasticsearch-elk-azure-kubernetes-service/
+
+https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/
+https://towardsdatascience.com/the-basics-of-deploying-logstash-pipelines-to-kubernetes-94a470ad34d9
+
+-----------------------------------------------------------------------------
+kubectl apply -f storageclass.yml 
+kubectl apply -f elasticsearch-svc.yml 
+kubectl apply -f elasticsearch-statefulsets.yml 
+after 5 minutes, statefulsets pods will be ready. 
+http://yourip-elasticsearch-svc:9200/
+
+kubectl apply -f kibana-deployment.yml 
+kubectl apply -f kibana-svc.yml 
+http://yourip-kibana:5601/ 
+
+
+kubectl create configmap logstashconf --from-file logstash.conf
+
+kubectl apply -f logstash-deployment.yml 
+kubectl apply -f logstash-svc.yml 
+http://yourip-logstash-svc:9600/
+-----------------------
+
+install filebeat and set the filebeat.yml as config
+curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.5.0-amd64.deb
+sudo dpkg -i filebeat-7.5.0-amd64.deb
+
+vi /etc/filebeat/filebeat.yml 
+enabled: true 
+
+comment elasticsearch section and uncomment logstash section 
+
+
+
+#volumeclaim templates are for statefulsets. It needs storage class to be created and then it will create respective PV. 
+#Deployments need PVC and mapping of PVC name with deployment. 
+
+
