@@ -4,6 +4,14 @@ https://portworx.com/run-ha-elasticsearch-elk-azure-kubernetes-service/
 https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/
 https://towardsdatascience.com/the-basics-of-deploying-logstash-pipelines-to-kubernetes-94a470ad34d9
 
+****Note: 
+This procedure works well for AZURE KUBERNETES AKS 
+few changes required when it is for other clusters. 
+1) under sc.yml 
+provision line might change 
+2) for load balancer
+EKS might take the LB automatically but if it is on-prem just take care by yourself. 
+
 -----------------------------------------------------------------------------
 kubectl apply -f storageclass.yml 
 kubectl apply -f elasticsearch-svc.yml 
